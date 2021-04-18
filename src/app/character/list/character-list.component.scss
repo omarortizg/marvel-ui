@@ -1,0 +1,42 @@
+.character-list-section {
+    .search-container {
+        margin-bottom: 15px;
+        
+        .order-by label {
+            margin-right: 5px;
+        }
+    }
+
+    .filter-container {
+        margin-bottom: 15px;
+
+        .comics-container,
+        .stories-container {
+            margin-right: 10px;
+
+            .comics-dropdown-container,
+            .stories-dropdown-container {
+                width: 300px;
+                max-height: 300px;
+                overflow: auto;
+    
+                ul {
+                    list-style-type: none;
+                    padding-left: 15px;
+    
+                    li {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .character-accordion {
+        .character-image {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+}

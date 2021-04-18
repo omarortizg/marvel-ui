@@ -1,0 +1,75 @@
+<section class="character-list-section">
+    <div class="row search-container">
+        <div class="col-12 col-sm-8 col-md-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                    aria-describedby="search" [(ngModel)]="searchTerm" (keyup.enter)="search()">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" id="search" (click)="search()">Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 col-md-8 order-by">
+            <div class="form-inline float-sm-right">
+                <div class="form-group">
+                    <label for="orderBy">Order By:</label>
+                    <select class="form-control" id="orderBy" [(ngModel)]="orderBy" (change)="search()">
+                        <option *ngFor="let option of orderByOptions" [value]="option.value">
+                            {{ option.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row filter-container">
+        <div class="col-12">
+            <div ngbDropdown class="d-inline-block comics-container">
+                <button class="btn btn-outline-primary" [ngClass]="{ 'btn-outline-warning': selectedComics.length > 0 }"
+                    id="comicsOptions" ngbDropdownToggle>
+                    Comics
+                </button>
+                <div ngbDropdownMenu class="comics-dropdown-container" aria-labelledby="comicsOptions">
+                    <ul *ngFor="let comic of comicList">
+                        <li>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" [id]="'comic-' + comic.id" #comicEl
+                                    (change)="onComicChange(comicEl.checked, comic.id)" />
+                                <label class="form-check-label" [for]="'comic-' + comic.id">
+                                    {{ comic.title }}
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div ngbDropdown class="d-inline-block stories-container">
+                <button class="btn btn-outline-primary" [ngClass]="{ 'btn-outline-warning': selectedStories.length > 0 }"
+                    id="storiesOptions" ngbDropdownToggle>
+                    Stories
+                </button>
+                <div ngbDropdownMenu class="stories-dropdown-container" aria-labelledby="storiesOptions">
+                    <ul *ngFor="let story of storyList">
+                        <li>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" [id]="'story-' + story.id" #storyEl
+                                    (change)="onStoryChange(storyEl.checked, story.id)" />
+                                <label class="form-check-label" [for]="'story-' + story.id">
+                                    {{ story.title | storyName }}
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let character of characterList">
+            <app-character-item [character]="character"></app-character-item>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+@import '../../../../shared-colors.scss';
+
+.card {
+    margin-bottom: 15px;
+
+    .card-img-top {
+        height: 160px;
+    }
+
+    .card-body {
+        height: 255px;
+        background-color: $light;
+    }
+
+    .card-img-top,
+    .card-body {
+        @media (max-width: 576px) {
+            height: auto;
+        }
+    }
+}
