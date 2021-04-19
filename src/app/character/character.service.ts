@@ -4,16 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export const CHARACTER_ORDER_OPTIONS = [
-    {
-        name: 'A-Z',
-        value: 'name'
-    },
-    {
-        name: 'Z-A',
-        value: '-name'
-    }
-];
+import { CHARACTER_ORDER_OPTIONS } from './character.constant';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +14,7 @@ export class CharacterService {
     constructor(private http: HttpClient) { }
 
     public getAllCharacters(
-        orderBy = 'name',
+        orderBy = CHARACTER_ORDER_OPTIONS[0].value,
         nameStartsWith = '',
         selectedComics: number[] = [],
         selectedStories: number[] = []

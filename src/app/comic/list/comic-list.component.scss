@@ -1,0 +1,16 @@
+.comic-list-section {
+    .search-container {
+        margin-bottom: 15px;
+        
+        .left {
+            display: inline-flex;
+        }
+
+        .filters {
+            .format-group,
+            label {
+                margin-right: 5px;
+            }
+        }
+    }
+}

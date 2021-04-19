@@ -1,0 +1,11 @@
+<div class="card">
+    <img [src]="item.thumbnail.path + '.' + item.thumbnail.extension" class="card-img-top" [alt]="item.title" />
+    <div class="card-body">
+        <h5 class="card-title">
+            <a [routerLink]="[path, item.id]">{{ item.title }}</a>
+        </h5>
+        <p class="card-text" *ngIf="item.description">
+            {{ item.description | slice:0:50 }}<span *ngIf="item.description.length > 50">...</span>
+        </p>
+    </div>
+</div>

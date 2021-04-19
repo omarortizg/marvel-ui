@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } fr
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -12,8 +13,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             url: `https://gateway.marvel.com/v1/public/${request.url}`,
             setParams: {
                 ts: '1',
-                apikey: '526b6db1bdc8de6ca966fc9e6c38f8de',
-                hash: 'e721fa3fd6111941d664ab68d23ea2e6'
+                apikey: environment.apikey,
+                hash: environment.hash
             }
         };
         request = request.clone(requestParams);
