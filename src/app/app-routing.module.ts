@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CharacterListComponent } from './character/list/character-list.component';
 import { ComicListComponent } from './comic/list/comic-list.component';
 import { StoryListComponent } from './story/list/story-list.component';
+import { DetailComponent } from './shared/components/detail/detail.component';
 import { ErrorComponent } from './error/error.component';
 
 import { CharacterListResolver } from './character/list/character-list.resolver';
@@ -11,7 +12,7 @@ import { ComicListResolver } from './comic/list/comic-list.resolver';
 import { StoryListResolver } from './story/list/story-list.resolver';
 import { CharacterDetailResolver } from './character/character-detail.resolver';
 import { ComicDetailResolver } from './comic/comic-detail.resolver';
-import { DetailComponent } from './shared/components/detail/detail.component';
+import { StoryDetailResolver } from './story/story-detail.resolver';
 
 const routes: Routes = [
     {
@@ -35,8 +36,7 @@ const routes: Routes = [
             detail: CharacterDetailResolver
         },
         data: {
-            list1: 'Comics',
-            list2: 'Stories'
+            viewName: 'characters'
         }
     },
     {
@@ -53,8 +53,7 @@ const routes: Routes = [
             detail: ComicDetailResolver
         },
         data: {
-            list1: 'Characters',
-            list2: 'Stories'
+            viewName: 'comics'
         }
     },
     {
@@ -62,6 +61,16 @@ const routes: Routes = [
         component: StoryListComponent,
         resolve: {
             stories: StoryListResolver
+        }
+    },
+    {
+        path: 'stories/:id',
+        component: DetailComponent,
+        resolve: {
+            detail: StoryDetailResolver
+        },
+        data: {
+            viewName: 'stories'
         }
     },
     {
@@ -82,7 +91,8 @@ const routes: Routes = [
         ComicListResolver,
         StoryListResolver,
         CharacterDetailResolver,
-        ComicDetailResolver
+        ComicDetailResolver,
+        StoryDetailResolver
     ]
 })
 export class AppRoutingModule { }

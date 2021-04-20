@@ -38,7 +38,7 @@ export class CharacterService {
     public getCharacter(id: number): Observable<any> {
         return this.http.get<any>(`characters/${id}`)
             .pipe(
-                map((response) => response.results[0])
+                map((response) => response[0])
             );
     }
 }

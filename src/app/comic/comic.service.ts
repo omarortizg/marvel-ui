@@ -38,7 +38,7 @@ export class ComicService {
     public getComic(id: number): Observable<any> {
         return this.http.get<any>(`comics/${id}`)
             .pipe(
-                map((response) => response.results[0])
+                map((response) => response[0])
             );
     }
 }

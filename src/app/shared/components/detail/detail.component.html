@@ -1,27 +1,27 @@
 <section class="detail-section">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-4">
+            <h3 class="d-block d-sm-none">
+                {{ detail.title }}
+                <img *ngIf="!isFavorite" (click)="favorite()" class="clickable" src="https://img.icons8.com/ios/50/000000/star--v1.png"/>
+                <img *ngIf="isFavorite" (click)="favorite()" class="clickable" src="https://img.icons8.com/ios-filled/50/000000/star--v1.png"/>
+            </h3>
             <img class="w-100" [src]="detail.thumbnail.path + '.' + detail.thumbnail.extension" [alt]="detail.title" />
         </div>
         <div class="col-12 col-sm-6 col-md-8">
-            <h3>{{ detail.title }}</h3>
+            <h3 class="d-none d-sm-block">
+                {{ detail.title }}
+                <img *ngIf="!isFavorite" (click)="favorite()" class="clickable" src="https://img.icons8.com/ios/50/000000/star--v1.png"/>
+                <img *ngIf="isFavorite" (click)="favorite()" class="clickable" src="https://img.icons8.com/ios-filled/50/000000/star--v1.png"/>
+            </h3>
             <p>{{ detail.description }}</p>
 
             <div class="row">
-                <div class="col-12 col-sm-6">
-                    <div class="list1">
-                        <h5>{{ list1 }}</h5>
-                        <li *ngFor="let itemList1 of detail.list1">
-                            {{ itemList1.name }}
-                        </li>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6">
-                    <div class="list2">
-                        <h5>{{ list2 }}</h5>
-                        <li *ngFor="let itemList2 of detail.list2">
-                            {{ itemList2.name }}
+                <div class="col-12 col-sm-6" *ngFor="let collection of detail.collectionList">
+                    <div class="list">
+                        <h5>{{ collection.name }}</h5>
+                        <li *ngFor="let item of collection.itemList">
+                            <a [routerLink]="[collection.path, getIdFromPath(item.resourceURI)]">{{ item.name }}</a>
                         </li>
                     </div>
                 </div>

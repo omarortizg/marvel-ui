@@ -15,6 +15,7 @@ import { ComicListComponent } from './comic/list/comic-list.component';
 import { StoryListComponent } from './story/list/story-list.component';
 import { ItemComponent } from './shared/components/item/item.component';
 import { DetailComponent } from './shared/components/detail/detail.component';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 import { StoryNamePipe } from './story/story-name.pipe';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { StoryNamePipe } from './story/story-name.pipe';
         StoryListComponent,
         ItemComponent,
         DetailComponent,
+        LoadingComponent,
         ErrorComponent,
         StoryNamePipe
     ],

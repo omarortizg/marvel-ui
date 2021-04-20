@@ -3,25 +3,25 @@ import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { StoryNamePipe } from '../story/story-name.pipe';
+import { StoryNamePipe } from 'src/app/story/story-name.pipe';
 
-import { ComicService } from './comic.service';
+import { StoryService } from './story.service';
 
 @Injectable()
-export class ComicDetailResolver implements Resolve<any> {
+export class StoryDetailResolver implements Resolve<any> {
 
     constructor(
-        private service: ComicService,
+        private service: StoryService,
         private router: Router,
         private storyNamePipe: StoryNamePipe
     ) { }
 
     public resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        return this.service.getComic(route.params.id)
+        return this.service.getStory(route.params.id)
             .pipe(
                 map((response) => {
                     return {
-                        title: response.title,
+                        title: this.storyNamePipe.transform(response.title),
                         thumbnail: response.thumbnail || { path: '/assets/no-image', extension: 'jpg' },
                         description: response.description,
                         collectionList: [
@@ -31,12 +31,9 @@ export class ComicDetailResolver implements Resolve<any> {
                                 itemList: response.characters.items
                             },
                             {
-                                name: 'Stories',
-                                path: '/stories',
-                                itemList: response.stories.items.map((item: any) => {
-                                    item.name = this.storyNamePipe.transform(item.name);
-                                    return item;
-                                })
+                                name: 'Comics',
+                                path: '/comics',
+                                itemList: response.comics.items
                             }
                         ]
                     };

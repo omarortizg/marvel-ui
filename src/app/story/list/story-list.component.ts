@@ -21,13 +21,13 @@ export class StoryListComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.updateData(this.route.snapshot.data.stories.results);
+        this.updateData(this.route.snapshot.data.stories);
     }
 
     public search(): void {
         this.storyService.getAllStories()
             .subscribe((result) => {
-                this.updateData(result.results);
+                this.updateData(result);
             });
     }
 

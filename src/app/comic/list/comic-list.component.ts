@@ -27,7 +27,7 @@ export class ComicListComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.updateData(this.route.snapshot.data.comics.results);
+        this.updateData(this.route.snapshot.data.comics);
     }
 
     public search(): void {
@@ -37,7 +37,7 @@ export class ComicListComponent implements OnInit {
                 this.format,
                 this.issueNumber ? this.issueNumber.toString() : '')
             .subscribe((result) => {
-                this.updateData(result.results);
+                this.updateData(result);
             });
     }
 

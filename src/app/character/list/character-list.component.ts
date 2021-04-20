@@ -27,15 +27,15 @@ export class CharacterListComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.updateData(this.route.snapshot.data.characters.results);
-        this.comicList = this.route.snapshot.data.comics.results;
-        this.storyList = this.route.snapshot.data.stories.results;
+        this.updateData(this.route.snapshot.data.characters);
+        this.comicList = this.route.snapshot.data.comics;
+        this.storyList = this.route.snapshot.data.stories;
     }
 
     public search(): void {
         this.characterService.getAllCharacters(this.orderBy, this.searchTerm, this.selectedComics, this.selectedStories)
             .subscribe((result) => {
-                this.updateData(result.results);
+                this.updateData(result);
             });
     }
 
