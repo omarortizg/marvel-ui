@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express(),
-    port = 85;
+    port = 8080;
 
 app.use(express.static(process.cwd() + '/dist/marvel-ui/'));
 
