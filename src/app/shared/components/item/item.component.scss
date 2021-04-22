@@ -4,18 +4,20 @@
     margin-bottom: 15px;
 
     .card-img-top {
-        height: 160px;
-    }
-
-    .card-body {
-        height: 255px;
-        background-color: $light;
-    }
-
-    .card-img-top,
-    .card-body {
         @media (max-width: 576px) {
-            height: auto;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 577px) {
+            height: 160px;
+        }
+    }
+
+    .card-body {
+        background-color: $light;
+
+        @media (min-width: 577px) {
+            height: 255px;
         }
     }
 }

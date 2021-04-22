@@ -18,6 +18,8 @@ import { ItemComponent } from './shared/components/item/item.component';
 import { DetailComponent } from './shared/components/detail/detail.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { StoryNamePipe } from './story/story-name.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -37,7 +39,11 @@ import { StoryNamePipe } from './story/story-name.pipe';
         FormsModule,
         HttpClientModule,
         NgBootstrapModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            registrationStrategy: 'registerImmediately'
+        })
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
