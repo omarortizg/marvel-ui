@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize, map, shareReplay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { LoadingService } from '../services/loading.service';
@@ -11,10 +11,19 @@ import { LoadingService } from '../services/loading.service';
 export class HttpConfigInterceptor implements HttpInterceptor {
 
     private totalRequests = 0;
+    private readonly cache = new Map<string, Observable<HttpEvent<any>>>();
 
     constructor(private loading: LoadingService) { }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const key = request.urlWithParams;
+        if (request.method === 'GET') {
+            const cached = this.cache.get(key);
+            if (cached !== undefined) {
+                return cached;
+            }
+        }
+
         this.beforeRequest();
 
         const requestParams = {
@@ -27,7 +36,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         };
         request = request.clone(requestParams);
 
-        return next.handle(request)
+        const res = next.handle(request)
             .pipe(
                 map((event: HttpEvent<any>) => {
                     if (event instanceof HttpResponse) {
@@ -37,10 +46,15 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
                     return event;
                 }),
+                shareReplay(1),
                 finalize(() => {
                     this.afterRequest();
                 })
             );
+
+        this.cache.set(key, res);
+
+        return res;
     }
 
     private beforeRequest(): void {

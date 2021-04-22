@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" infiniteScroll (scrolled)="onScroll()" [infiniteScrollDistance]=".5">
         <div class="col-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let item of itemList">
             <app-item [item]="item" path="/characters"></app-item>
         </div>

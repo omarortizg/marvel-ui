@@ -12,7 +12,6 @@ import { CHARACTER_ORDER_OPTIONS } from '../character.constant';
 export class CharacterListComponent implements OnInit {
 
     public itemList: any[] = [];
-    public characterList: any = [];
     public comicList: any = [];
     public storyList: any = [];
     public orderByOptions = CHARACTER_ORDER_OPTIONS;
@@ -20,6 +19,9 @@ export class CharacterListComponent implements OnInit {
     public searchTerm = '';
     public selectedComics: number[] = [];
     public selectedStories: number[] = [];
+    private characterList: any[] = [];
+    private offset = 0;
+    private isFetching = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -33,10 +35,8 @@ export class CharacterListComponent implements OnInit {
     }
 
     public search(): void {
-        this.characterService.getAllCharacters(this.orderBy, this.searchTerm, this.selectedComics, this.selectedStories)
-            .subscribe((result) => {
-                this.updateData(result);
-            });
+        this.offset = 0;
+        this.fetchCharacters();
     }
 
     public onComicChange(isChecked: boolean, comicId: number): void {
@@ -63,6 +63,24 @@ export class CharacterListComponent implements OnInit {
         }
 
         this.search();
+    }
+
+    public onScroll(): void {
+        if (!this.isFetching) {
+            this.isFetching = true;
+            this.offset += 20;
+            this.fetchCharacters(this.characterList);
+        }
+    }
+
+    private fetchCharacters(currentCharacterList: any[] = []): void {
+        this.characterService.getAllCharacters(this.orderBy, this.searchTerm, this.selectedComics, this.selectedStories, this.offset)
+            .subscribe((result) => {
+                if (result.length) {
+                    this.isFetching = false;
+                }
+                this.updateData(currentCharacterList.concat(result));
+            });
     }
 
     private updateData(characters: any[]): void {

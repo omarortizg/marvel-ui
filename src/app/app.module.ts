@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { HttpConfigInterceptor } from './shared/http/http-config.interceptor';
 
@@ -35,7 +36,8 @@ import { StoryNamePipe } from './story/story-name.pipe';
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        NgBootstrapModule
+        NgBootstrapModule,
+        InfiniteScrollModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },

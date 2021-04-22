@@ -17,10 +17,12 @@ export class CharacterService {
         orderBy = CHARACTER_ORDER_OPTIONS[0].value,
         nameStartsWith = '',
         selectedComics: number[] = [],
-        selectedStories: number[] = []
-    ): Observable<any> {
+        selectedStories: number[] = [],
+        offset = 0
+    ): Observable<any[]> {
         const params: any = {
-            orderBy
+            orderBy,
+            offset
         };
         if (nameStartsWith) {
             params.nameStartsWith = nameStartsWith;
